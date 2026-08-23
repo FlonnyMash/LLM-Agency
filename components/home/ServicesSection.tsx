@@ -2,6 +2,7 @@ import { services } from "@/lib/services";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { ServiceCard } from "@/components/services/ServiceCard";
 import { ArrowCta } from "@/components/ui/ArrowCta";
+import { ServiceSlideshow } from "@/components/home/ServiceSlideshow";
 
 export function ServicesSection() {
   return (
@@ -15,7 +16,8 @@ export function ServicesSection() {
           <ArrowCta href="/services">All services</ArrowCta>
         </div>
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <ServiceSlideshow services={services} />
+        <div className="hidden gap-5 lg:grid lg:grid-cols-4">
           {services.map((service, i) => (
             <ServiceCard key={service.index} service={service} delay={i * 0.05} />
           ))}

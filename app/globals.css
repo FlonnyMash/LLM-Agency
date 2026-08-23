@@ -69,7 +69,6 @@ body {
   background: var(--paper);
   color: var(--ink);
   font-family: var(--font-sans);
-  overflow-x: clip;
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
 }
@@ -187,14 +186,14 @@ html.page-transition-hold .page-shell {
 }
 
 .project-stack-item {
-  position: relative;
-  top: auto;
+  position: sticky;
+  top: calc(5.75rem + (var(--stack-n, 0) * 1.65rem));
   padding-bottom: 2.75rem;
+  background: var(--paper);
 }
 
 @media (min-width: 768px) {
   .project-stack-item {
-    position: sticky;
     top: calc(6.5rem + (var(--stack-n, 0) * 2.15rem));
     padding-bottom: 3.5rem;
   }
