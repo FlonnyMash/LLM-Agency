@@ -3,8 +3,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { VideoFrame } from "@/components/ui/VideoFrame";
 
-const STEPS = [28, 52, 36, 78, 44, 100, 58, 40, 64];
-const PEAK = STEPS.indexOf(Math.max(...STEPS));
+const STEPS = [55, 100, 55];
 
 export function Intro() {
   return (
@@ -13,15 +12,9 @@ export function Intro() {
         {STEPS.map((height, i) => (
           <div
             key={i}
-            className="hero-step relative"
+            className="hero-step"
             style={{ height: `${height}%` }}
-          >
-            {i === PEAK ? (
-              <span className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 font-display text-sm text-ink">
-                +
-              </span>
-            ) : null}
-          </div>
+          />
         ))}
       </div>
 

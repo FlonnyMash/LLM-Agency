@@ -39,6 +39,10 @@ html {
     display: none !important;
   }
 
+  .home-intro-pane {
+    animation: none !important;
+  }
+
   html {
     scroll-behavior: auto;
   }
@@ -94,6 +98,74 @@ body {
 
 .page-shell {
   transition: transform 0.74s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.home-intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  pointer-events: auto;
+  background: var(--accent);
+  isolation: isolate;
+  animation: home-intro-clear-fill 0s linear forwards;
+  animation-delay: var(--intro-delay, 0.28s);
+}
+
+.home-intro-row {
+  position: absolute;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+}
+
+.home-intro-pane {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: var(--accent);
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+  animation-duration: var(--intro-duration, 0.92s);
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation-fill-mode: forwards;
+  animation-delay: calc(
+    var(--intro-delay, 0.28s) + var(--intro-i, 0) * var(--intro-stagger, 0.05s)
+  );
+}
+
+.home-intro-pane-left {
+  left: 0;
+  animation-name: home-intro-peel-left;
+}
+
+.home-intro-pane-right {
+  right: 0;
+  animation-name: home-intro-peel-right;
+}
+
+@keyframes home-intro-clear-fill {
+  to {
+    background: transparent;
+  }
+}
+
+@keyframes home-intro-peel-left {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-105%, 0, 0);
+  }
+}
+
+@keyframes home-intro-peel-right {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(105%, 0, 0);
+  }
 }
 
 html.page-transition-cover,

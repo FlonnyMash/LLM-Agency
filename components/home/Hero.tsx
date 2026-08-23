@@ -40,7 +40,7 @@ export function Hero() {
     <section className="hero-pin group/hero sticky top-0 z-0 isolate h-[100svh] min-h-[100svh] overflow-hidden bg-ink text-paper">
       <div className="absolute inset-0">
         <motion.div
-          className="absolute inset-0"
+          className="absolute inset-0 transform-gpu"
           initial={reduced ? false : { scale: 1.18 }}
           animate={{ scale: 1 }}
           transition={{

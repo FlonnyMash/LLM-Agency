@@ -1,31 +1,33 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { useLayoutEffect, useState } from "react";
+import { useReducedMotion } from "framer-motion";
 import { intro } from "./intro-timing";
+
+const STRIP_COUNT = intro.splits.length;
 
 export function HomeIntro() {
   const reduced = useReducedMotion() ?? false;
   const [active, setActive] = useState(!reduced);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (reduced) {
       setActive(false);
       return;
     }
 
     const root = document.documentElement;
-    const previous = root.style.overflow;
+    const previousOverflow = root.style.overflow;
     root.style.overflow = "hidden";
 
     const timeout = window.setTimeout(() => {
       setActive(false);
-      root.style.overflow = previous;
+      root.style.overflow = previousOverflow;
     }, intro.totalMs);
 
     return () => {
       window.clearTimeout(timeout);
-      root.style.overflow = previous;
+      root.style.overflow = previousOverflow;
     };
   }, [reduced]);
 
@@ -33,32 +35,33 @@ export function HomeIntro() {
 
   return (
     <div
-      className="home-intro-overlay pointer-events-auto fixed inset-0 z-30 flex flex-col"
+      className="home-intro-overlay"
       aria-hidden="true"
+      style={
+        {
+          "--intro-delay": `${intro.stripDelay}s`,
+          "--intro-stagger": `${intro.stripStagger}s`,
+          "--intro-duration": `${intro.stripDuration}s`,
+        } as React.CSSProperties
+      }
     >
       {intro.splits.map((split, i) => (
-        <div key={i} className="relative min-h-0 flex-1 overflow-hidden">
-          <motion.div
-            className="absolute inset-y-0 left-0 bg-accent will-change-transform"
-            style={{ width: `calc(${split * 100}% + 2px)` }}
-            initial={{ x: "0%" }}
-            animate={{ x: "-105%" }}
-            transition={{
-              duration: intro.stripDuration,
-              delay: intro.stripDelay + i * intro.stripStagger,
-              ease: intro.ease,
-            }}
+        <div
+          key={i}
+          className="home-intro-row"
+          style={{
+            top: `calc(${(i / STRIP_COUNT) * 100}% - 2px)`,
+            height: `calc(${100 / STRIP_COUNT}% + 4px)`,
+            ["--intro-i" as string]: i,
+          }}
+        >
+          <div
+            className="home-intro-pane home-intro-pane-left"
+            style={{ width: `calc(${split * 100}% + 3px)` }}
           />
-          <motion.div
-            className="absolute inset-y-0 right-0 bg-accent will-change-transform"
-            style={{ width: `calc(${(1 - split) * 100}% + 2px)` }}
-            initial={{ x: "0%" }}
-            animate={{ x: "105%" }}
-            transition={{
-              duration: intro.stripDuration,
-              delay: intro.stripDelay + i * intro.stripStagger,
-              ease: intro.ease,
-            }}
+          <div
+            className="home-intro-pane home-intro-pane-right"
+            style={{ width: `calc(${(1 - split) * 100}% + 3px)` }}
           />
         </div>
       ))}
