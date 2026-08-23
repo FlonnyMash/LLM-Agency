@@ -6,7 +6,7 @@ export function ProjectCard({ project }: { project: Project }) {
   return (
     <article className="group relative">
       <div className="project-visual relative">
-        <div className="relative isolate aspect-4/3 overflow-hidden rounded-4xl bg-ink [clip-path:inset(0_round_2rem)] transform-[translateZ(0)]">
+        <div className="relative isolate aspect-4/3 overflow-hidden rounded-[2rem] bg-ink">
           <div className="absolute inset-0 origin-center transition-transform duration-700 ease-out group-hover:scale-[1.04]">
             <VideoFrame src={project.media} />
           </div>

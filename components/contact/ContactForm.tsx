@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
 import { siteConfig } from "@/lib/site";
 import { ArrowLink } from "@/components/ui/ArrowLink";
+import { interpolate } from "@/lib/i18n/interpolate";
+import { useLocale } from "@/components/i18n/LocaleProvider";
 
 type FormState = {
   name: string;
@@ -19,24 +21,26 @@ const initialState: FormState = { name: "", email: "", budget: "", message: "" }
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-function validate(values: FormState): Errors {
-  const errors: Errors = {};
-  if (!values.name.trim()) errors.name = "Please tell us your name.";
-  if (!values.email.trim()) {
-    errors.email = "Please share an email address.";
-  } else if (!emailPattern.test(values.email.trim())) {
-    errors.email = "That email address doesn't look right.";
-  }
-  if (!values.message.trim() || values.message.trim().length < 10) {
-    errors.message = "Give us a few sentences about the project.";
-  }
-  return errors;
-}
-
 export function ContactForm() {
+  const { dict } = useLocale();
+  const copy = dict.contactForm;
   const [values, setValues] = useState<FormState>(initialState);
   const [errors, setErrors] = useState<Errors>({});
   const [submitted, setSubmitted] = useState(false);
+
+  function validate(next: FormState): Errors {
+    const nextErrors: Errors = {};
+    if (!next.name.trim()) nextErrors.name = copy.nameError;
+    if (!next.email.trim()) {
+      nextErrors.email = copy.emailRequired;
+    } else if (!emailPattern.test(next.email.trim())) {
+      nextErrors.email = copy.emailInvalid;
+    }
+    if (!next.message.trim() || next.message.trim().length < 10) {
+      nextErrors.message = copy.messageError;
+    }
+    return nextErrors;
+  }
 
   function handleChange(field: keyof FormState) {
     return (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -50,9 +54,16 @@ export function ContactForm() {
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
 
-    const subject = encodeURIComponent(`New project inquiry from ${values.name}`);
+    const subject = encodeURIComponent(
+      interpolate(copy.subject, { name: values.name }),
+    );
     const body = encodeURIComponent(
-      `${values.message}\n\nBudget: ${values.budget || "Not specified"}\nFrom: ${values.name} (${values.email})`,
+      `${values.message}\n\n${interpolate(copy.bodyBudget, {
+        budget: values.budget || copy.notSpecified,
+      })}\n${interpolate(copy.bodyFrom, {
+        name: values.name,
+        email: values.email,
+      })}`,
     );
     window.location.href = `mailto:${siteConfig.email}?subject=${subject}&body=${body}`;
     setSubmitted(true);
@@ -67,15 +78,26 @@ export function ContactForm() {
       >
         <CheckCircle2 className="size-8 text-accent" aria-hidden="true" />
         <h3 className="font-display text-2xl font-medium tracking-tight text-ink">
-          Thanks — we&apos;ll be in touch.
+          {copy.thanksTitle}
         </h3>
         <p className="text-sm leading-relaxed text-muted">
-          Your email client should have opened with a pre-filled message. If
-          it didn&apos;t, write to us directly at{" "}
-          <a href={`mailto:${siteConfig.email}`} className="text-accent underline">
-            {siteConfig.email}
-          </a>
-          .
+          {interpolate(copy.thanksBody, { email: siteConfig.email }).split(
+            siteConfig.email,
+          ).map((part, i, parts) =>
+            i < parts.length - 1 ? (
+              <span key={i}>
+                {part}
+                <a
+                  href={`mailto:${siteConfig.email}`}
+                  className="text-accent underline"
+                >
+                  {siteConfig.email}
+                </a>
+              </span>
+            ) : (
+              <span key={i}>{part}</span>
+            ),
+          )}
         </p>
       </motion.div>
     );
@@ -86,7 +108,7 @@ export function ContactForm() {
       <div className="grid gap-6 sm:grid-cols-2">
         <Field
           id="name"
-          label="Name"
+          label={copy.name}
           value={values.name}
           onChange={handleChange("name")}
           error={errors.name}
@@ -94,7 +116,7 @@ export function ContactForm() {
         />
         <Field
           id="email"
-          label="Email"
+          label={copy.email}
           type="email"
           value={values.email}
           onChange={handleChange("email")}
@@ -105,14 +127,14 @@ export function ContactForm() {
 
       <Field
         id="budget"
-        label="Approximate budget (optional)"
+        label={copy.budget}
         value={values.budget}
         onChange={handleChange("budget")}
       />
 
       <Field
         id="message"
-        label="Tell us about the project"
+        label={copy.message}
         as="textarea"
         rows={5}
         value={values.message}
@@ -121,7 +143,7 @@ export function ContactForm() {
       />
 
       <ArrowLink type="submit" className="mt-2 w-full sm:w-fit">
-        Send message
+        {copy.submit}
       </ArrowLink>
     </form>
   );

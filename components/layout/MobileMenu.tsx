@@ -5,6 +5,9 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { siteConfig } from "@/lib/site";
 import { ArrowCta } from "@/components/ui/ArrowCta";
+import { localizedPath } from "@/lib/i18n/paths";
+import { LocaleSwitcher } from "@/components/i18n/LocaleSwitcher";
+import { useLocale } from "@/components/i18n/LocaleProvider";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -20,6 +23,8 @@ const itemVariants = {
 };
 
 export function MobileMenu({ onClose }: { onClose: () => void }) {
+  const { locale, dict } = useLocale();
+
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") onClose();
@@ -38,7 +43,7 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
     >
       <div className="pointer-events-none h-[calc(5.25rem+env(safe-area-inset-top))] shrink-0" />
       <motion.nav
-        aria-label="Mobile"
+        aria-label={dict.nav.mobile}
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -52,11 +57,11 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
               className="border-b border-white/10 py-4"
             >
               <Link
-                href={item.href}
+                href={localizedPath(locale, item.href)}
                 onClick={onClose}
                 className="font-display flex items-baseline justify-between text-4xl font-medium tracking-tight text-paper"
               >
-                {item.label}
+                {dict.nav[item.key]}
                 <span className="font-label text-sm text-accent">0{i + 1}</span>
               </Link>
             </motion.li>
@@ -64,8 +69,9 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
         </ul>
 
         <motion.div variants={itemVariants} className="flex flex-col gap-4">
-          <ArrowCta href="/contact" tone="dark" onClick={onClose}>
-            Get in touch
+          <LocaleSwitcher tone="dark" />
+          <ArrowCta href={localizedPath(locale, "/contact")} tone="dark" onClick={onClose}>
+            {dict.nav.getInTouch}
           </ArrowCta>
           <a
             href={`mailto:${siteConfig.email}`}

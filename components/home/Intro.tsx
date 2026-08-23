@@ -2,10 +2,15 @@ import { ArrowCta } from "@/components/ui/ArrowCta";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { VideoFrame } from "@/components/ui/VideoFrame";
+import type { Locale } from "@/lib/i18n/config";
+import { getDictionary } from "@/lib/i18n/getDictionary";
+import { localizedPath } from "@/lib/i18n/paths";
 
 const STEPS = [55, 100, 55];
 
-export function Intro() {
+export function Intro({ locale }: { locale: Locale }) {
+  const dict = getDictionary(locale).home.intro;
+
   return (
     <section className="relative z-10">
       <div className="hero-skyline" aria-hidden="true">
@@ -20,25 +25,22 @@ export function Intro() {
 
       <div className="bg-paper px-6 pb-24 pt-8 sm:px-8 sm:pb-32 sm:pt-10">
         <div className="mx-auto max-w-6xl">
-          <SectionLabel label="Hey, just an intro" index="01" />
+          <SectionLabel label={dict.label} index="01" />
 
           <Reveal>
             <h2 className="font-display max-w-5xl text-[clamp(1.75rem,4.2vw,3.35rem)] font-medium leading-[1.12] tracking-tight text-ink">
-              A brand and digital studio based in Munich, building immersive
-              identities and websites for ambitious companies. From strategy to
-              shipping, every detail is considered.
+              {dict.heading}
               <span className="text-accent">®</span>
             </h2>
           </Reveal>
 
           <div className="mt-10 flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between">
             <Reveal delay={0.05}>
-              <ArrowCta href="/contact">Get in touch</ArrowCta>
+              <ArrowCta href={localizedPath(locale, "/contact")}>{dict.cta}</ArrowCta>
             </Reveal>
             <Reveal delay={0.1}>
               <p className="max-w-md text-sm leading-relaxed text-muted">
-                Currently booking a small number of Q1 partnerships. If the work
-                has to last, let&apos;s talk.
+                {dict.booking}
               </p>
             </Reveal>
           </div>
@@ -47,23 +49,20 @@ export function Intro() {
             <Reveal>
               <div className="flex flex-col gap-4">
                 <h3 className="font-display text-2xl font-medium tracking-tight text-ink">
-                  Bringing ideas to life
+                  {dict.ideaTitle}
                 </h3>
                 <p className="text-sm leading-relaxed text-muted sm:text-base">
-                  We specialise in brand systems, product design and digital
-                  experiences that feel expensive because they are considered —
-                  not because they are loud.
+                  {dict.ideaBody}
                 </p>
               </div>
             </Reveal>
             <Reveal delay={0.08}>
               <div className="flex flex-col gap-4">
                 <h3 className="font-display text-2xl font-medium tracking-tight text-ink">
-                  Collaborate with us
+                  {dict.collabTitle}
                 </h3>
                 <p className="text-sm leading-relaxed text-muted sm:text-base">
-                  Small team, senior people on every project. No account layers,
-                  no junior learning curve on your budget.
+                  {dict.collabBody}
                 </p>
               </div>
             </Reveal>

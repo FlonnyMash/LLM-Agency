@@ -4,6 +4,8 @@ import Image from "next/image";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { ArrowCta } from "@/components/ui/ArrowCta";
 import { intro } from "@/components/home/intro-timing";
+import { localizedPath } from "@/lib/i18n/paths";
+import { useLocale } from "@/components/i18n/LocaleProvider";
 import heroPhoto from "@/public/media/hero.jpg";
 
 const ease = intro.ease;
@@ -34,6 +36,7 @@ const clip: Variants = {
 
 export function Hero() {
   const reduced = useReducedMotion() ?? false;
+  const { locale, dict } = useLocale();
 
   return (
     <section className="hero-pin group/hero sticky top-0 z-0 isolate h-[100svh] min-h-[100svh] overflow-hidden bg-ink text-paper">
@@ -83,12 +86,10 @@ export function Hero() {
 
           <motion.div variants={item} className="max-w-sm pb-2">
             <p className="mb-6 text-sm leading-relaxed text-white/75 sm:text-base">
-              An independent brand and digital studio. We design identities,
-              products and campaigns that hold their own in crowded markets —
-              and keep working long after launch.
+              {dict.home.hero.body}
             </p>
-            <ArrowCta href="/contact" tone="dark">
-              Get in touch
+            <ArrowCta href={localizedPath(locale, "/contact")} tone="dark">
+              {dict.home.hero.cta}
             </ArrowCta>
           </motion.div>
         </div>

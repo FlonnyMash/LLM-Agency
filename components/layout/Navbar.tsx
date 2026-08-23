@@ -8,6 +8,9 @@ import { Menu, X } from "lucide-react";
 import { siteConfig } from "@/lib/site";
 import { ArrowCta } from "@/components/ui/ArrowCta";
 import { intro } from "@/components/home/intro-timing";
+import { localizedPath, isLocaleHome } from "@/lib/i18n/paths";
+import { LocaleSwitcher } from "@/components/i18n/LocaleSwitcher";
+import { useLocale } from "@/components/i18n/LocaleProvider";
 import { MobileMenu } from "./MobileMenu";
 
 export function Navbar() {
@@ -15,7 +18,8 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const [previousPathname, setPreviousPathname] = useState(pathname);
-  const isHome = pathname === "/";
+  const { locale, dict } = useLocale();
+  const isHome = isLocaleHome(pathname);
   const overlay = isHome && !scrolled && !open;
   const reduced = useReducedMotion() ?? false;
   const playIntro = isHome && !reduced;
@@ -64,23 +68,23 @@ export function Navbar() {
       >
         <motion.div {...enter(0)}>
           <Link
-            href="/"
+            href={localizedPath(locale, "/")}
             className={`font-display text-lg font-medium tracking-tight ${overlay ? "text-white" : "text-ink"}`}
-            aria-label={`${siteConfig.name} home`}
+            aria-label={dict.nav.homeAria}
           >
             {siteConfig.shortName}
             <span className="text-accent">*</span>
           </Link>
         </motion.div>
 
-        <nav aria-label="Primary" className="hidden items-center gap-7 md:flex">
+        <nav aria-label={dict.nav.primary} className="hidden items-center gap-7 md:flex">
           {siteConfig.nav.map((item, i) => (
             <motion.div key={item.href} {...enter(i + 1)}>
               <Link
-                href={item.href}
+                href={localizedPath(locale, item.href)}
                 className={`font-label text-[0.7rem] uppercase tracking-[0.16em] transition-colors ${linkClass}`}
               >
-                {item.label}
+                {dict.nav[item.key]}
                 <sup className="ml-0.5 text-[0.65em] text-accent">
                   0{i + 1}
                 </sup>
@@ -89,16 +93,20 @@ export function Navbar() {
           ))}
         </nav>
 
-        <motion.div className="hidden md:block" {...enter(siteConfig.nav.length + 1)}>
-          <ArrowCta href="/contact" tone={overlay ? "dark" : "light"}>
-            Get in touch
+        <motion.div
+          className="hidden items-center gap-5 md:flex"
+          {...enter(siteConfig.nav.length + 1)}
+        >
+          <LocaleSwitcher tone={overlay ? "overlay" : "light"} />
+          <ArrowCta href={localizedPath(locale, "/contact")} tone={overlay ? "dark" : "light"}>
+            {dict.nav.getInTouch}
           </ArrowCta>
         </motion.div>
 
         <motion.button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          aria-label={open ? "Close menu" : "Open menu"}
+          aria-label={open ? dict.nav.closeMenu : dict.nav.openMenu}
           aria-expanded={open}
           className={`relative z-50 flex size-11 items-center justify-center rounded-full border touch-manipulation md:hidden ${
             overlay ? "border-white/30 text-white" : "border-line-strong text-ink"

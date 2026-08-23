@@ -1,3 +1,6 @@
+import type { Locale } from "@/lib/i18n/config";
+import { getDictionary } from "@/lib/i18n/getDictionary";
+
 const clients = [
   "Northline",
   "Aeon Supply",
@@ -9,13 +12,14 @@ const clients = [
   "Oslo Atelier",
 ];
 
-export function SocialProof() {
+export function SocialProof({ locale }: { locale: Locale }) {
+  const dict = getDictionary(locale);
   const loop = [...clients, ...clients];
 
   return (
     <section className="border-y border-line py-10">
       <p className="font-label mb-6 text-center text-xs uppercase tracking-[0.2em] text-muted">
-        Also working with these international partners
+        {dict.home.social.label}
       </p>
       <div className="overflow-hidden">
         <ul className="marquee-track flex w-max items-center gap-12 px-8">

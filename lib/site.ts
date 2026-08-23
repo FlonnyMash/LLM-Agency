@@ -1,12 +1,8 @@
 export const siteConfig = {
   name: "LLM Agency",
   shortName: "LLM",
-  tagline: "Brand & digital studio",
-  description:
-    "LLM Agency is an independent brand and digital studio that helps ambitious companies build brands people remember, and digital experiences people return to.",
   url: "https://llmagency.example.com",
   email: "hello@llmagency.example.com",
-  location: "Munich, DE — working worldwide",
   founded: "2018",
   social: [
     { label: "Instagram", href: "https://instagram.com" },
@@ -14,15 +10,16 @@ export const siteConfig = {
     { label: "X", href: "https://x.com" },
   ],
   nav: [
-    { label: "Work", href: "/work" },
-    { label: "Services", href: "/services" },
-    { label: "About", href: "/about" },
-    { label: "Contact", href: "/contact" },
+    { key: "work" as const, href: "/work" },
+    { key: "services" as const, href: "/services" },
+    { key: "about" as const, href: "/about" },
+    { key: "contact" as const, href: "/contact" },
   ],
   legal: [
-    { label: "Privacy", href: "/privacy" },
-    { label: "Terms", href: "/terms" },
+    { key: "privacy" as const, href: "/privacy" },
+    { key: "terms" as const, href: "/terms" },
   ],
-} as const;
+};
 
 export type NavItem = (typeof siteConfig.nav)[number];
+export type LegalItem = (typeof siteConfig.legal)[number];

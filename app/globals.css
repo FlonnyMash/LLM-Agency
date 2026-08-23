@@ -189,7 +189,7 @@ html.page-transition-hold .page-shell {
   position: sticky;
   top: calc(5.75rem + (var(--stack-n, 0) * 1.65rem));
   padding-bottom: 2.75rem;
-  background: var(--paper);
+  background: transparent;
 }
 
 @media (min-width: 768px) {

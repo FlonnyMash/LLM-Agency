@@ -3,10 +3,13 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Service } from "@/lib/services";
 import { ServiceCard } from "@/components/services/ServiceCard";
+import { interpolate } from "@/lib/i18n/interpolate";
+import { useLocale } from "@/components/i18n/LocaleProvider";
 
 export function ServiceSlideshow({ services }: { services: Service[] }) {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
+  const { dict } = useLocale();
 
   const updateActive = useCallback(() => {
     const el = scrollerRef.current;
@@ -32,21 +35,26 @@ export function ServiceSlideshow({ services }: { services: Service[] }) {
     const el = scrollerRef.current;
     const card = el?.children[index] as HTMLElement | undefined;
     if (!el || !card) return;
-    card.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+    const padding = parseFloat(getComputedStyle(el).paddingLeft) || 0;
+    el.scrollTo({ left: card.offsetLeft - padding, behavior: "smooth" });
   }
 
   return (
     <div className="lg:hidden">
       <div
         ref={scrollerRef}
-        className="-mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain px-6 scrollbar-none"
+        className="relative -mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto overflow-y-hidden overscroll-x-contain overscroll-y-none px-6 touch-pan-x scrollbar-none"
       >
         {services.map((service) => (
           <div
             key={service.index}
-            className="w-[min(82vw,22rem)] shrink-0 snap-start"
+            className="w-[min(82vw,22rem)] shrink-0 snap-start overflow-hidden"
           >
-            <ServiceCard service={service} className="h-full min-h-[22rem]" />
+            <ServiceCard
+              service={service}
+              liftOnHover={false}
+              className="h-full min-h-[22rem]"
+            />
           </div>
         ))}
       </div>
@@ -54,7 +62,7 @@ export function ServiceSlideshow({ services }: { services: Service[] }) {
       <div
         className="mt-6 flex justify-center gap-2"
         role="tablist"
-        aria-label="Services"
+        aria-label={dict.home.services.slideshowAria}
       >
         {services.map((service, i) => (
           <button
@@ -62,7 +70,9 @@ export function ServiceSlideshow({ services }: { services: Service[] }) {
             type="button"
             role="tab"
             aria-selected={i === active}
-            aria-label={`Show ${service.title}`}
+            aria-label={interpolate(dict.home.services.showService, {
+              title: service.title,
+            })}
             onClick={() => goTo(i)}
             className={`h-1.5 rounded-full transition-all ${
               i === active ? "w-6 bg-accent" : "w-1.5 bg-line-strong"

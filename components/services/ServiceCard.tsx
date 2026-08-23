@@ -7,10 +7,12 @@ export function ServiceCard({
   service,
   delay = 0,
   className = "",
+  liftOnHover = true,
 }: {
   service: Service;
   delay?: number;
   className?: string;
+  liftOnHover?: boolean;
 }) {
   return (
     <motion.div
@@ -18,7 +20,7 @@ export function ServiceCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.5, delay, ease: [0.16, 1, 0.3, 1] }}
-      whileHover={{ y: -4 }}
+      whileHover={liftOnHover ? { y: -4 } : undefined}
       className={`group relative flex flex-col justify-between gap-6 rounded-2xl border border-line bg-paper p-7 transition-colors duration-300 hover:border-line-strong hover:bg-paper-raised sm:p-8 ${className}`}
     >
       <div className="flex items-start justify-between">

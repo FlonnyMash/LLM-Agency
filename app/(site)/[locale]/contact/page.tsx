@@ -1,29 +1,47 @@
-import type { Metadata } from "next";
 import { Mail, MapPin, Clock } from "lucide-react";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Reveal } from "@/components/ui/Reveal";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { siteConfig } from "@/lib/site";
+import { parseLocale } from "@/lib/i18n/config";
+import { getDictionary } from "@/lib/i18n/getDictionary";
+import { localeMetadata } from "@/lib/i18n/metadata";
+import { generateLocaleParams } from "@/lib/i18n/params";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description:
-    "Get in touch with LLM Agency to discuss a brand, web or campaign project.",
-};
+export function generateStaticParams() {
+  return generateLocaleParams();
+}
 
-const details = [
-  { icon: Mail, label: siteConfig.email, href: `mailto:${siteConfig.email}` },
-  { icon: MapPin, label: siteConfig.location },
-  { icon: Clock, label: "Replies within one business day" },
-];
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  return localeMetadata(parseLocale(locale), "contact", "/contact");
+}
 
-export default function ContactPage() {
+export default async function ContactPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const locale = parseLocale((await params).locale);
+  const dict = getDictionary(locale);
+  const page = dict.contactPage;
+
+  const details = [
+    { icon: Mail, label: siteConfig.email, href: `mailto:${siteConfig.email}` },
+    { icon: MapPin, label: dict.site.location },
+    { icon: Clock, label: page.replyTime },
+  ];
+
   return (
     <>
       <PageHeader
-        eyebrow="Get in touch"
-        title="Tell us about the project."
-        description="Whether you know exactly what you need or you're still figuring it out, we're happy to talk it through."
+        eyebrow={page.eyebrow}
+        title={page.title}
+        description={page.description}
       />
 
       <section className="px-6 pb-24 sm:px-8 sm:pb-32">
@@ -46,8 +64,7 @@ export default function ContactPage() {
 
             <Reveal delay={0.05}>
               <p className="max-w-sm text-sm leading-relaxed text-muted">
-                Prefer email? Reach out directly and we&apos;ll set up a call
-                to talk through scope, timeline and budget.
+                {page.preferEmail}
               </p>
             </Reveal>
           </div>
