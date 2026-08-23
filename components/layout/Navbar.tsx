@@ -54,7 +54,7 @@ export function Navbar() {
   });
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-4 sm:px-6">
+    <header className="fixed inset-x-0 top-0 z-50 px-4 pt-[env(safe-area-inset-top)] sm:px-6">
       <div
         className={`mx-auto mt-3 flex w-full max-w-6xl items-center justify-between rounded-full border px-4 transition-all duration-300 ${
           overlay
@@ -100,7 +100,7 @@ export function Navbar() {
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
-          className={`flex size-10 items-center justify-center rounded-full border md:hidden ${
+          className={`flex size-11 items-center justify-center rounded-full border touch-manipulation md:hidden ${
             overlay ? "border-white/30 text-white" : "border-line-strong text-ink"
           }`}
           {...enter(1)}

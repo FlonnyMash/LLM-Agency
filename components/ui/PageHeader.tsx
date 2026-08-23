@@ -11,7 +11,7 @@ export function PageHeader({
   description?: ReactNode;
 }) {
   return (
-    <div className="mx-auto max-w-6xl px-6 pb-16 pt-40 sm:px-8 sm:pt-48">
+    <div className="mx-auto max-w-6xl px-6 pb-16 pt-32 sm:px-8 sm:pt-48">
       <Reveal>
         <p className="flex items-center gap-2.5 font-label text-xs uppercase tracking-[0.2em] text-ink">
           <span className="size-2 bg-accent" aria-hidden="true" />

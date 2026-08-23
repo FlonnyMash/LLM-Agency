@@ -12,12 +12,12 @@ export function ProjectCard({ project }: { project: Project }) {
           </div>
           <div className="absolute inset-0 bg-black/0 transition-colors duration-500 group-hover:bg-black/25" />
         </div>
-        <span className="absolute -bottom-5 right-4 z-10 flex size-12 items-center justify-center rounded-full bg-accent text-white opacity-0 shadow-[0_10px_24px_rgba(225,6,0,0.35)] transition-all duration-300 group-hover:opacity-100 group-hover:-translate-y-0.5">
+        <span className="absolute -bottom-5 right-4 z-10 flex size-12 items-center justify-center rounded-full bg-accent text-white opacity-100 shadow-[0_10px_24px_rgba(225,6,0,0.35)] transition-all duration-300 md:opacity-0 md:group-hover:opacity-100 md:group-hover:-translate-y-0.5">
           <ArrowUpRight className="size-5" aria-hidden="true" />
         </span>
       </div>
 
-      <div className="relative z-1 flex items-start justify-between gap-4 bg-paper px-1 pt-6">
+      <div className="relative z-1 flex flex-col items-start gap-3 bg-paper px-1 pt-6 sm:flex-row sm:justify-between sm:gap-4">
         <div className="flex min-w-0 items-start gap-3">
           <span className="mt-2 flex gap-1" aria-hidden="true">
             <span className="size-1.5 rounded-full bg-accent" />
@@ -31,7 +31,7 @@ export function ProjectCard({ project }: { project: Project }) {
             <p className="mt-0.5 text-sm text-muted">{project.year}</p>
           </div>
         </div>
-        <ul className="flex flex-wrap justify-end gap-1.5">
+        <ul className="flex flex-wrap justify-start gap-1.5 sm:justify-end">
           {project.tags.map((tag) => (
             <li
               key={tag}

@@ -65,7 +65,7 @@ export function Process() {
         </div>
 
         <Reveal>
-          <div className="relative mb-12 aspect-[16/7] overflow-hidden rounded-[2rem] bg-ink">
+          <div className="relative mb-12 aspect-video overflow-hidden rounded-4xl bg-ink sm:aspect-16/7">
             <VideoFrame src="/media/car.mp4" />
             <div className="absolute inset-0 bg-black/20" />
           </div>
@@ -79,7 +79,7 @@ export function Process() {
                 <h3 className="font-display text-2xl font-medium tracking-tight text-ink sm:text-3xl">
                   {step.title}
                 </h3>
-                <p className="mt-3 max-w-md text-sm leading-relaxed text-muted sm:mt-0">
+                <p className="col-span-2 mt-3 max-w-md text-sm leading-relaxed text-muted sm:col-span-1 sm:mt-0">
                   {step.description}
                 </p>
               </div>

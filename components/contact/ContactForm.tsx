@@ -139,7 +139,7 @@ function Field({
   error?: string;
   as?: "input" | "textarea";
 } & Omit<InputHTMLAttributes<HTMLInputElement> & TextareaHTMLAttributes<HTMLTextAreaElement>, "id">) {
-  const inputClasses = `w-full rounded-xl border bg-transparent px-4 py-3 text-sm text-ink outline-none transition-colors placeholder:text-muted/60 focus:border-ink ${
+  const inputClasses = `w-full rounded-xl border bg-transparent px-4 py-3 text-base text-ink outline-none transition-colors placeholder:text-muted/60 focus:border-ink ${
     error ? "border-accent" : "border-line-strong"
   }`;
 

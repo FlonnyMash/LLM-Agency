@@ -6,7 +6,7 @@ export const siteConfig = {
     "LLM Agency is an independent brand and digital studio that helps ambitious companies build brands people remember, and digital experiences people return to.",
   url: "https://llmagency.example.com",
   email: "hello@llmagency.example.com",
-  location: "Amsterdam, NL — working worldwide",
+  location: "Munich, DE — working worldwide",
   founded: "2018",
   social: [
     { label: "Instagram", href: "https://instagram.com" },

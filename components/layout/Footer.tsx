@@ -4,7 +4,7 @@ import { siteConfig } from "@/lib/site";
 export function Footer() {
   return (
     <footer className="border-t border-line bg-paper">
-      <div className="mx-auto max-w-6xl px-6 py-16 sm:px-8">
+      <div className="mx-auto max-w-6xl px-6 pt-16 pb-[calc(4rem+env(safe-area-inset-bottom))] sm:px-8">
         <div className="flex flex-col justify-between gap-10 border-b border-line pb-12 md:flex-row">
           <div className="flex max-w-sm flex-col gap-4">
             <span className="font-display text-2xl font-medium tracking-tight text-ink">
@@ -21,7 +21,7 @@ export function Footer() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="font-label text-xs uppercase tracking-[0.16em] text-ink-soft transition-colors hover:text-accent"
+                className="font-label inline-flex min-h-11 items-center text-xs uppercase tracking-[0.16em] text-ink-soft transition-colors hover:text-accent"
               >
                 {item.label}
                 <sup className="ml-1 text-accent">0{i + 1}</sup>
@@ -32,7 +32,7 @@ export function Footer() {
           <div className="flex flex-col gap-3">
             <a
               href={`mailto:${siteConfig.email}`}
-              className="text-sm font-medium text-ink transition-colors hover:text-accent"
+              className="inline-flex min-h-11 items-center text-sm font-medium text-ink transition-colors hover:text-accent"
             >
               {siteConfig.email}
             </a>
@@ -45,14 +45,14 @@ export function Footer() {
             © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
           </span>
 
-          <div className="flex items-center gap-6">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
             {siteConfig.social.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
                 target="_blank"
                 rel="noreferrer"
-                className="font-label text-xs uppercase tracking-[0.16em] text-ink-soft transition-colors hover:text-accent"
+                className="font-label inline-flex min-h-11 items-center py-2 text-xs uppercase tracking-[0.16em] text-ink-soft transition-colors hover:text-accent"
               >
                 {item.label}
               </a>
@@ -61,7 +61,7 @@ export function Footer() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="font-label text-xs uppercase tracking-[0.16em] text-ink-soft transition-colors hover:text-accent"
+                className="font-label inline-flex min-h-11 items-center py-2 text-xs uppercase tracking-[0.16em] text-ink-soft transition-colors hover:text-accent"
               >
                 {item.label}
               </Link>

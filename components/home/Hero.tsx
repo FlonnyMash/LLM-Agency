@@ -67,7 +67,7 @@ export function Hero() {
         variants={container}
         initial={reduced ? false : "hidden"}
         animate="visible"
-        className="relative mx-auto flex min-h-[100svh] max-w-6xl flex-col justify-end px-6 pb-16 pt-32 sm:px-8 sm:pb-20"
+        className="relative mx-auto flex min-h-[100svh] max-w-6xl flex-col justify-end px-6 pb-12 pt-24 sm:px-8 sm:pb-20 sm:pt-32 [@media(max-height:700px)]:pb-8 [@media(max-height:700px)]:pt-20"
       >
         <motion.p
           variants={item}
@@ -77,7 +77,7 @@ export function Hero() {
         </motion.p>
 
         <div className="flex flex-col justify-between gap-10 lg:flex-row lg:items-end">
-          <h1 className="font-display overflow-hidden text-[clamp(4.5rem,16vw,11rem)] font-medium leading-[0.82] tracking-tight text-white">
+          <h1 className="font-display overflow-hidden text-[clamp(3.5rem,18vw,11rem)] font-medium leading-[0.82] tracking-tight text-white">
             <motion.span variants={clip} className="block">
               LLM<span className="text-accent">*</span>
             </motion.span>

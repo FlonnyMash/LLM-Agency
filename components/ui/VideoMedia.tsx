@@ -15,18 +15,35 @@ export function VideoMedia({
     const video = ref.current;
     if (!video) return;
 
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const apply = () => {
-      if (mediaQuery.matches) {
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let visible = false;
+
+    const sync = () => {
+      if (motionQuery.matches || !visible) {
         video.pause();
-      } else {
-        void video.play().catch(() => undefined);
+        return;
       }
+      void video.play().catch(() => undefined);
     };
 
-    apply();
-    mediaQuery.addEventListener("change", apply);
-    return () => mediaQuery.removeEventListener("change", apply);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        visible = Boolean(
+          entry?.isIntersecting && entry.intersectionRatio >= 0.25,
+        );
+        sync();
+      },
+      { threshold: [0, 0.25, 0.5, 1] },
+    );
+
+    observer.observe(video);
+    motionQuery.addEventListener("change", sync);
+
+    return () => {
+      observer.disconnect();
+      motionQuery.removeEventListener("change", sync);
+      video.pause();
+    };
   }, [src]);
 
   return (
@@ -37,7 +54,6 @@ export function VideoMedia({
       muted
       loop
       playsInline
-      autoPlay
       preload="metadata"
       aria-hidden="true"
     />

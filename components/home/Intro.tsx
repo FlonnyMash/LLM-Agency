@@ -24,7 +24,7 @@ export function Intro() {
 
           <Reveal>
             <h2 className="font-display max-w-5xl text-[clamp(1.75rem,4.2vw,3.35rem)] font-medium leading-[1.12] tracking-tight text-ink">
-              A brand and digital studio based in Amsterdam, building immersive
+              A brand and digital studio based in Munich, building immersive
               identities and websites for ambitious companies. From strategy to
               shipping, every detail is considered.
               <span className="text-accent">®</span>
@@ -70,7 +70,7 @@ export function Intro() {
           </div>
 
           <Reveal delay={0.1} className="mt-16">
-            <div className="relative aspect-[16/8] overflow-hidden rounded-[2rem] bg-ink sm:rounded-[2.5rem]">
+            <div className="relative aspect-video overflow-hidden rounded-4xl bg-ink sm:aspect-16/8 sm:rounded-[2.5rem]">
               <VideoFrame src="/media/portrait.mp4" />
               <div className="absolute inset-0 bg-black/15" />
             </div>

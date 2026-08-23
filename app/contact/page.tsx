@@ -34,7 +34,7 @@ export default function ContactPage() {
                 <div key={label} className="flex items-center gap-3 text-sm text-ink-soft">
                   <Icon className="size-4 text-accent" aria-hidden="true" />
                   {href ? (
-                    <a href={href} className="hover:text-ink">
+                    <a href={href} className="inline-flex min-h-11 items-center hover:text-ink">
                       {label}
                     </a>
                   ) : (

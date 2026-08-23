@@ -25,7 +25,7 @@ export function CtaSection() {
         <Reveal delay={0.05}>
           <h2 className="font-display text-[clamp(2.5rem,7vw,5.5rem)] font-medium leading-[0.95] tracking-tight text-white">
             Let&apos;s make something
-            <br />
+            <br className="hidden sm:block" />
             worth talking about
             <span className="text-accent">*</span>
           </h2>

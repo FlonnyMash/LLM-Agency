@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { siteConfig } from "@/lib/site";
@@ -19,6 +20,14 @@ const itemVariants = {
 };
 
 export function MobileMenu({ onClose }: { onClose: () => void }) {
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -27,13 +36,13 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
       transition={{ duration: 0.25 }}
       className="fixed inset-0 z-40 flex flex-col bg-ink text-paper md:hidden"
     >
-      <div className="h-20" />
+      <div className="h-[calc(5.25rem+env(safe-area-inset-top))] shrink-0" />
       <motion.nav
         aria-label="Mobile"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="flex flex-1 flex-col justify-between px-6 pb-10"
+        className="flex flex-1 flex-col justify-between px-6 pb-[max(2.5rem,env(safe-area-inset-bottom))]"
       >
         <ul className="flex flex-col gap-1">
           {siteConfig.nav.map((item, i) => (
@@ -60,7 +69,7 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
           </ArrowCta>
           <a
             href={`mailto:${siteConfig.email}`}
-            className="font-label text-xs uppercase tracking-[0.16em] text-white/50"
+            className="font-label inline-flex min-h-11 items-center text-xs uppercase tracking-[0.16em] text-white/50"
           >
             {siteConfig.email}
           </a>
