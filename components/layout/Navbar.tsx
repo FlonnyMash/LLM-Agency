@@ -56,7 +56,7 @@ export function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-4 pt-[env(safe-area-inset-top)] sm:px-6">
       <div
-        className={`mx-auto mt-3 flex w-full max-w-6xl items-center justify-between rounded-full border px-4 transition-all duration-300 ${
+        className={`relative z-50 mx-auto mt-3 flex w-full max-w-6xl items-center justify-between rounded-full border px-4 transition-all duration-300 ${
           overlay
             ? "border-transparent bg-transparent py-3"
             : "border-line bg-paper/90 py-2.5 shadow-[0_1px_0_0_rgba(11,11,11,0.04)] backdrop-blur-md"
@@ -100,7 +100,7 @@ export function Navbar() {
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
-          className={`flex size-11 items-center justify-center rounded-full border touch-manipulation md:hidden ${
+          className={`relative z-50 flex size-11 items-center justify-center rounded-full border touch-manipulation md:hidden ${
             overlay ? "border-white/30 text-white" : "border-line-strong text-ink"
           }`}
           {...enter(1)}

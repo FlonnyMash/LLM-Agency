@@ -36,7 +36,7 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
       transition={{ duration: 0.25 }}
       className="fixed inset-0 z-40 flex flex-col bg-ink text-paper md:hidden"
     >
-      <div className="h-[calc(5.25rem+env(safe-area-inset-top))] shrink-0" />
+      <div className="pointer-events-none h-[calc(5.25rem+env(safe-area-inset-top))] shrink-0" />
       <motion.nav
         aria-label="Mobile"
         variants={containerVariants}

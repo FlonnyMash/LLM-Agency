@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { ArrowCta } from "@/components/ui/ArrowCta";
-import { HeroSmoke } from "@/components/home/HeroSmoke";
 import { intro } from "@/components/home/intro-timing";
 import heroPhoto from "@/public/media/hero.jpg";
 
@@ -60,7 +59,6 @@ export function Hero() {
           />
         </motion.div>
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/35 transition-opacity duration-700 group-hover/hero:opacity-80" />
-        <HeroSmoke />
       </div>
 
       <motion.div
