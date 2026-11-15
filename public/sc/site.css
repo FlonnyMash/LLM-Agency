@@ -545,3 +545,7 @@ html.wf-locked, html.wf-menu-open { overflow: hidden; }
 .wf-bar[data-away="true"] { transform: translateY(-100%); }
 .wf-bar:focus-within { transform: none; }
 @media (prefers-reduced-motion: reduce) { .wf-bar { transition: none; } }
+
+/* Promote the hero's moving layers up front, so a phone does not build them during the first scroll. */
+.wf-hero__h, .wf-hero__scrim { will-change: transform, opacity; }
+.wf-hero__video { transform: translateZ(0); }
