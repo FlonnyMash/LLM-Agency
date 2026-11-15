@@ -10,8 +10,8 @@ export default function GlobalNotFound() {
   return (
     <html lang="de" className={`${archivo.variable} ${geist.variable}`}>
       <head>
-        <link rel="stylesheet" href="/sc/scrollcraft.css" />
-        <link rel="stylesheet" href="/sc/site.css" />
+        <link rel="stylesheet" href={`/sc/scrollcraft.css?v=${process.env.NEXT_PUBLIC_ASSET_V}`} />
+        <link rel="stylesheet" href={`/sc/site.css?v=${process.env.NEXT_PUBLIC_ASSET_V}`} />
       </head>
       <body>
         <main id="top">

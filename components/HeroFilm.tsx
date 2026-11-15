@@ -23,9 +23,9 @@ export function HeroFilm() {
     const portrait = window.matchMedia("(max-width: 860px) and (orientation: portrait)");
     const pick = () => {
       const src = portrait.matches ? "/media/imagefilm-mobile.mp4" : "/media/imagefilm.mp4";
-      if (!v.src.includes(src)) {
+      if (!v.src.includes(`${src}?`)) {
         const wasPlaying = !v.paused;
-        v.src = `${src}#t=0.1`;
+        v.src = `${src}?v=${process.env.NEXT_PUBLIC_ASSET_V}#t=0.1`;
         v.load();
         v.defaultPlaybackRate = SPEED;
         v.playbackRate = SPEED;

@@ -26,7 +26,7 @@ export function ScrollCraftMount() {
       return;
     }
     const el = document.createElement("script");
-    el.src = "/sc/scrollcraft.js";
+    el.src = `/sc/scrollcraft.js?v=${process.env.NEXT_PUBLIC_ASSET_V}`;
     el.dataset.scEngine = "";
     el.addEventListener("load", start, { once: true });
     document.body.appendChild(el);
