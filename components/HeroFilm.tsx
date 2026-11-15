@@ -34,6 +34,12 @@ export function HeroFilm() {
     };
     v.defaultPlaybackRate = SPEED;
     v.playbackRate = SPEED;
+    // Some phones leave the loop hanging at the last frame: restart by hand if it ever ends.
+    const again = () => {
+      v.currentTime = 0;
+      if (!reduced) void v.play().catch(() => undefined);
+    };
+    v.addEventListener("ended", again);
     pick();
     portrait.addEventListener("change", pick);
     const io = new IntersectionObserver(
@@ -48,6 +54,7 @@ export function HeroFilm() {
     return () => {
       io.disconnect();
       portrait.removeEventListener("change", pick);
+      v.removeEventListener("ended", again);
     };
   }, []);
 
