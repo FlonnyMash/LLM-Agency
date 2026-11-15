@@ -5,6 +5,7 @@ import { getDict, otherLocale, pathFor, type Locale, type PageRef } from "@/lib/
 
 export function Header({ locale, page }: { locale: Locale; page: PageRef }) {
   const [open, setOpen] = useState(false);
+  const [away, setAway] = useState(false);
   const d = getDict(locale);
   const other = otherLocale(locale);
 
@@ -15,6 +16,32 @@ export function Header({ locale, page }: { locale: Locale; page: PageRef }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
+  // On the home page the bar slides up while the hero film stands alone, and returns when the film leaves.
+  useEffect(() => {
+    if (page.key !== "home") return;
+    const act = document.querySelector<HTMLElement>("[data-sc-act]");
+    if (!act) return;
+    let raf = 0;
+    let alive = true;
+    let state = false;
+    // Read the engine's progress every frame: it writes --sc-p on its own frame, so a scroll listener would lag by one.
+    const loop = () => {
+      if (!alive) return;
+      const p = parseFloat(getComputedStyle(act).getPropertyValue("--sc-p"));
+      const hide = Number.isFinite(p) && p >= 0.43 && p < 0.66;
+      if (hide !== state) {
+        state = hide;
+        setAway(hide);
+      }
+      raf = requestAnimationFrame(loop);
+    };
+    raf = requestAnimationFrame(loop);
+    return () => {
+      alive = false;
+      cancelAnimationFrame(raf);
+    };
+  }, [page.key]);
+
   const items = [
     { label: d.ui.nav.services, href: pathFor(locale, { key: "services" }), active: page.key === "services" || page.key === "service" },
     { label: d.ui.nav.about, href: pathFor(locale, { key: "about" }), active: page.key === "about" },
@@ -23,7 +50,7 @@ export function Header({ locale, page }: { locale: Locale; page: PageRef }) {
   const contactHref = pathFor(locale, { key: "contact" });
 
   return (
-    <header className="wf-bar" data-open={open}>
+    <header className="wf-bar" data-open={open} data-away={away && !open}>
       <div className="wf-bar__in">
         <a className="wf-mark" href={pathFor(locale, { key: "home" })} aria-label={d.ui.homeLabel}>
           Webfluence<span>Agency</span>

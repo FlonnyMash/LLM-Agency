@@ -7,6 +7,9 @@ import { useEffect, useRef } from "react";
  * It plays while the hero is on screen, pauses when it leaves, and does not start by itself
  * under reduced motion.
  */
+/** Playback speed of the film: 1 is the original, 1.25 is a quarter faster. */
+const SPEED = 1.25;
+
 export function HeroFilm() {
   const box = useRef<HTMLDivElement>(null);
   const video = useRef<HTMLVideoElement>(null);
@@ -15,6 +18,8 @@ export function HeroFilm() {
     const v = video.current;
     const el = box.current;
     if (!v || !el) return;
+    v.defaultPlaybackRate = SPEED;
+    v.playbackRate = SPEED;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const io = new IntersectionObserver(
       ([entry]) => {

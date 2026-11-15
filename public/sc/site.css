@@ -533,3 +533,9 @@ html.wf-locked, html.wf-menu-open { overflow: hidden; }
 
 /* the line under the buttons leaves together with the text */
 .wf-hero__line { transform: translate3d(0, calc(var(--to) * -80vh), 0); opacity: calc(1 - clamp(0, var(--to) * 1.8, 1)); }
+
+/* the bar slides up while the hero film stands alone */
+.wf-bar { transition: transform 360ms var(--sc-ease-out); }
+.wf-bar[data-away="true"] { transform: translateY(-100%); }
+.wf-bar:focus-within { transform: none; }
+@media (prefers-reduced-motion: reduce) { .wf-bar { transition: none; } }
