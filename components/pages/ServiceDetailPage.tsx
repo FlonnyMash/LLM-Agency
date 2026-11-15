@@ -54,7 +54,7 @@ export function ServiceDetailPage({ locale, s }: { locale: Locale; s: Service })
             </ol>
           </div>
           <div className="sc-wrap">
-            <div className="wf-faq" data-sc-stagger="70">
+            <div className="wf-faq">
               <h2 className="wf-faq__h" data-sc-in>{fmt(u.faqTitle, vars)}</h2>
               <dl>
                 {s.faq.map((f) => (

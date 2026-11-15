@@ -60,7 +60,7 @@
   --sc-9: 6rem;     --sc-10: 8rem;    --sc-11: 12rem;
 
   /* Section rhythm is fluid so a phone doesn't inherit desktop air. */
-  --sc-section: clamp(4.5rem, 9vw, 11rem);
+  --sc-section: clamp(3.5rem, 6.5vw, 7.5rem);
   --sc-gutter:  clamp(1.25rem, 5vw, 5.5rem);
   --sc-maxw:    82rem;
 

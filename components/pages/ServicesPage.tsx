@@ -32,7 +32,7 @@ export function ServicesPage({ locale }: { locale: Locale }) {
         ))}
 
         {/* Advergaming: pan, the use cases travel sideways */}
-        <section id="advergaming" data-sc-act="pan" data-sc-span="4.4" data-sc-drift="#09090b" aria-labelledby="advergaming-h">
+        <section id="advergaming" data-sc-act="pan" data-sc-span="3.2" data-sc-drift="#09090b" aria-labelledby="advergaming-h">
           <div data-sc-stage className="wf-spectrum">
             <div className="wf-rail" data-sc-pan="0.06">
               <div className="wf-rail__lead">

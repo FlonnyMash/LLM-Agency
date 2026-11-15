@@ -64,7 +64,7 @@ export function AdvergamingPage({ locale }: { locale: Locale }) {
           </div>
         </section>
 
-        <section data-sc-act="pin" data-sc-span="3.2" data-sc-drift="#0b0b10" aria-labelledby="was-h">
+        <section data-sc-act="pin" data-sc-span="2.6" data-sc-drift="#0b0b10" aria-labelledby="was-h">
           <div data-sc-stage className="wf-beats">
             <h2 id="was-h" className="sr-only">{a.beatsSr}</h2>
             <div className="wf-beats__in">
@@ -75,7 +75,7 @@ export function AdvergamingPage({ locale }: { locale: Locale }) {
           </div>
         </section>
 
-        <section data-sc-act="pan" data-sc-span="5.2" data-sc-drift="#0a0a0d" aria-labelledby="einsatz-h">
+        <section data-sc-act="pan" data-sc-span="3.4" data-sc-drift="#0a0a0d" aria-labelledby="einsatz-h">
           <div data-sc-stage className="wf-spectrum">
             <div className="wf-rail" data-sc-pan="0.06">
               <div className="wf-rail__lead">
@@ -108,7 +108,7 @@ export function AdvergamingPage({ locale }: { locale: Locale }) {
             <div data-sc-in>
               <Studio locale={locale} />
             </div>
-            <div className="wf-faq wf-faq--tight" data-sc-stagger="70">
+            <div className="wf-faq wf-faq--tight">
               <h2 className="wf-faq__h" data-sc-in>{a.faqTitle}</h2>
               <dl>
                 {a.faq.map((f) => (

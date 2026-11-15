@@ -18,8 +18,8 @@ export function HomePage({ locale }: { locale: Locale }) {
     <>
       <Header locale={locale} page={{ key: "home" }} />
       <main id="top">
-        {/* 1 · Hero: pin, poster headline with layered planes */}
-        <section data-sc-act="pin" data-sc-span="2.2" data-sc-drift="#09090b" aria-labelledby="hero-h">
+        {/* 1 · Hero: pin. The text leaves upward and the film stands alone, then the film leaves too. */}
+        <section data-sc-act="pin" data-sc-span="1.5" data-sc-drift="#09090b" aria-labelledby="hero-h">
           <div data-sc-stage className="wf-hero">
             <HeroFilm locale={locale} />
             <div className="wf-hero__bg" aria-hidden="true">
@@ -31,7 +31,7 @@ export function HomePage({ locale }: { locale: Locale }) {
                 <span className="wf-hero__big">{locale === "en" ? "Brand. Web. Play." : "Marke. Web. Spiel."}</span>
                 <span className="sr-only">{h.heroSr}</span>
               </h1>
-              <div className="wf-hero__cues" data-sc-cue="0 0.9 0 0.16">
+              <div className="wf-hero__cues">
                 <p className="wf-hero__lead">{h.heroLead}</p>
                 <div className="wf-row">
                   <a className="wf-cta" href={contact}>{d.ui.mainAction}</a>
@@ -56,7 +56,7 @@ export function HomePage({ locale }: { locale: Locale }) {
         </section>
 
         {/* 3 · Spectrum: pan */}
-        <section data-sc-act="pan" data-sc-span="5.6" data-sc-drift="#0a0a0d" aria-labelledby="spektrum-h">
+        <section data-sc-act="pan" data-sc-span="3.4" data-sc-drift="#0a0a0d" aria-labelledby="spektrum-h">
           <div data-sc-stage className="wf-spectrum">
             <div className="wf-rail" data-sc-pan="0.06">
               <div className="wf-rail__lead">
@@ -81,7 +81,7 @@ export function HomePage({ locale }: { locale: Locale }) {
         </section>
 
         {/* 4 · Peak: pin, the page plays itself */}
-        <section data-sc-act="pin" data-sc-span="5.6" data-sc-drift="#0b0b10" aria-labelledby="spiel-h">
+        <section data-sc-act="pin" data-sc-span="3.6" data-sc-drift="#0b0b10" aria-labelledby="spiel-h">
           <div data-sc-stage className="wf-peak">
             <div className="wf-peak__text">
               <div className="wf-peak__cues">
@@ -141,7 +141,7 @@ export function HomePage({ locale }: { locale: Locale }) {
                 </div>
               ))}
             </div>
-            <div className="wf-faq" data-sc-stagger="70">
+            <div className="wf-faq">
               <h2 className="wf-faq__h" data-sc-in>{h.faqTitle}</h2>
               <dl>
                 {h.faq.map((f) => (

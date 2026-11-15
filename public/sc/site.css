@@ -217,7 +217,7 @@ html.wf-locked, html.wf-menu-open { overflow: hidden; }
 .wf-promises > div { border-top: 1px solid var(--sc-hairline-strong); padding-top: 1.4rem; }
 .wf-promises h3 { margin: 0; font-family: var(--sc-font-display); font-weight: 700; font-size: clamp(1.4rem, 2.2vw, 1.9rem); letter-spacing: -0.03em; }
 .wf-promises p { margin: 0.7rem 0 0; color: var(--sc-ink-soft); max-width: 42ch; }
-.wf-faq { margin-top: clamp(4rem, 9vw, 8rem); display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(1.5rem, 5vw, 5rem); }
+.wf-faq { margin-top: clamp(3rem, 6vw, 5.5rem); display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(1.5rem, 5vw, 5rem); }
 .wf-faq--tight { margin-top: clamp(3rem, 7vw, 6rem); }
 .wf-faq__h { margin: 0; font-family: var(--sc-font-display); font-weight: 700; font-size: clamp(1.6rem, 2.6vw, 2.3rem); letter-spacing: -0.03em; }
 .wf-faq dl { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.2rem 3rem; }
@@ -516,11 +516,33 @@ html.wf-locked, html.wf-menu-open { overflow: hidden; }
 .wf-hero__pause:hover { background: rgba(9, 9, 12, 0.85); }
 .wf-hero__pause:active { transform: scale(0.97); }
 @media (max-width: 860px) {
+  /* On a phone the film keeps its full 16:9 frame at the top; the text sits on the plain ground below it. */
+  .wf-hero__film { background: var(--sc-canvas); }
+  .wf-hero__video { position: absolute; top: var(--bar-h); left: 0; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; }
   .wf-hero__scrim {
-    background:
-      linear-gradient(0deg, rgba(9, 9, 11, 0.96) 0%, rgba(9, 9, 11, 0.86) 52%, rgba(9, 9, 11, 0.42) 100%);
+    top: var(--bar-h); bottom: auto; height: 56.25vw;
+    background: linear-gradient(0deg, var(--sc-canvas) 0%, rgba(9, 9, 11, 0) 38%);
   }
   .wf-hero__pause { right: var(--sc-gutter); bottom: auto; top: calc(var(--bar-h) + 0.8rem); }
   .wf-hero__pause span { display: none; }
   .wf-hero__pause { padding: 0; width: 2.75rem; justify-content: center; }
+}
+
+/* ---------------------------------- hero choreography (scroll-driven) -- */
+/* 0.20 to 0.45: the text leaves upward. 0.45 to 0.66: only the film. 0.66 to 0.96: the film leaves. */
+.wf-hero {
+  --to: clamp(0, calc((var(--sc-p, 0) - 0.2) / 0.25), 1);
+  --vo: clamp(0, calc((var(--sc-p, 0) - 0.66) / 0.3), 1);
+}
+.wf-hero__h { transform: none; opacity: 1; }
+.wf-hero__in { transform: translate3d(0, calc(var(--to) * -80vh), 0); opacity: calc(1 - clamp(0, var(--to) * 1.8, 1)); will-change: transform, opacity; }
+.wf-hero__film { transform: translate3d(0, calc(var(--vo) * -26vh), 0); opacity: calc(1 - var(--vo)); will-change: transform, opacity; }
+.wf-hero__scrim { opacity: calc(1 - clamp(0, var(--to) * 1.6, 1)); }
+.wf-hero__pause { opacity: calc(1 - var(--vo)); }
+.wf-hero__pause:focus-visible { opacity: 1; }
+@media (max-width: 860px) {
+  .wf-hero__video { transform: translateY(calc(var(--to) * ((100svh - 56.25vw) / 2 - var(--bar-h)))); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wf-hero { --to: 0; --vo: 0; }
 }
