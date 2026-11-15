@@ -1,25 +1,29 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/site";
-import { locales } from "@/lib/i18n/config";
-import { localizedPath } from "@/lib/i18n/paths";
+import { locales, pathFor, serviceIds, type Locale, type PageRef } from "@/lib/i18n";
 
 export const dynamic = "force-static";
 
-const routes = ["/", "/work", "/services", "/about", "/contact", "/privacy", "/terms"];
+const refs: PageRef[] = [
+  { key: "home" },
+  { key: "services" },
+  ...serviceIds.map((id) => ({ key: "service" as const, id })),
+  { key: "advergaming" },
+  { key: "about" },
+  { key: "contact" },
+  { key: "privacy" },
+];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
-
-  return locales.flatMap((locale) =>
-    routes.map((route) => ({
-      url: `${siteConfig.url}${localizedPath(locale, route)}`,
+  return locales.flatMap((locale: Locale) =>
+    refs.map((ref) => ({
+      url: `${siteConfig.url}${pathFor(locale, ref)}`,
       lastModified,
-      changeFrequency: route === "/" ? "weekly" : "monthly",
-      priority: route === "/" ? 1 : 0.7,
+      changeFrequency: "monthly" as const,
+      priority: ref.key === "home" ? 1 : 0.7,
       alternates: {
-        languages: Object.fromEntries(
-          locales.map((item) => [item, `${siteConfig.url}${localizedPath(item, route)}`]),
-        ),
+        languages: Object.fromEntries(locales.map((l) => [l, `${siteConfig.url}${pathFor(l, ref)}`])),
       },
     })),
   );

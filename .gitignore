@@ -41,3 +41,8 @@ yarn-error.log*
 next-env.d.ts
 .tmp-frames
 .tmp-frames
+
+# scroll-craft lab output and design-skill state
+/scrollcraft/lab
+/shots
+/.taste-skill

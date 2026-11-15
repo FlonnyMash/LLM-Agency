@@ -1,19 +1,4 @@
-import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
+import { Archivo, Geist } from "next/font/google";
 
-export const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-export const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-export const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
-  subsets: ["latin"],
-  weight: ["500", "700"],
-});
-
-export const fontClassName = `${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable}`;
+export const archivo = Archivo({ subsets: ["latin"], axes: ["wdth"], variable: "--font-archivo", display: "swap" });
+export const geist = Geist({ subsets: ["latin"], variable: "--font-geist", display: "swap" });
