@@ -54,7 +54,7 @@ export const en: Dict = {
     heroSr: " Marketing, websites and advergaming for small and medium-sized businesses from Putzbrunn near Munich",
     heroLead: "Marketing, websites and advergaming for small and medium-sized businesses. Strategy, technology and delivery from one agency.",
     heroLink: "See services",
-    film: { label: "Brand film", aria: "Brand film of Webfluence Agency, without sound, on a loop", note: "Plays without sound on a loop.", pause: "Pause film", play: "Play film" },
+    film: { label: "Brand film", aria: "Brand film of Webfluence Agency, without sound, on a loop", note: "Plays without sound on a loop.", pause: "Pause film", play: "Play film", fullscreen: "Fullscreen" },
     stance: "Our approach",
     stanceLines: [
       { text: "Reach without good content ", em: "fizzles out." },

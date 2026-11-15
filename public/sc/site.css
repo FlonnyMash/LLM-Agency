@@ -103,7 +103,7 @@ html.wf-locked, html.wf-menu-open { overflow: hidden; }
 }
 
 /* --------------------------------------------------------------- hero -- */
-.wf-hero { position: relative; height: 100vh; height: 100svh; display: grid; align-items: end; padding: calc(var(--bar-h) + 1.5rem) 0 clamp(2.5rem, 9vh, 6rem); }
+.wf-hero { height: 100vh; height: 100svh; display: grid; align-items: end; padding: calc(var(--bar-h) + 1.5rem) 0 clamp(2.5rem, 9vh, 6rem); }
 .wf-hero__bg { position: absolute; inset: 0; overflow: clip; pointer-events: none; }
 .wf-hero__ghost {
   position: absolute; right: -2vw; top: 14%; font-family: var(--sc-font-display); font-weight: 800; font-stretch: 84%;
@@ -545,4 +545,28 @@ html.wf-locked, html.wf-menu-open { overflow: hidden; }
 }
 @media (prefers-reduced-motion: reduce) {
   .wf-hero { --to: 0; --vo: 0; }
+}
+
+/* ------------------------- hero film: full frame, zoom out, controls -- */
+.wf-hero__ctrl {
+  position: absolute; right: max(var(--sc-gutter), calc((100% - var(--sc-maxw)) / 2 + var(--sc-gutter))); bottom: clamp(2.6rem, 9.5vh, 6.4rem); z-index: 3;
+  display: flex; gap: 0.6rem; opacity: calc(1 - var(--vo));
+}
+.wf-hero__ctrl:focus-within { opacity: 1; }
+.wf-hero__ctrl .wf-hero__pause { position: static; opacity: 1; }
+@media (min-width: 861px) {
+  /* The film is a full 16:9 frame. It starts zoomed to cover the screen and opens up to the whole frame as the text leaves. */
+  .wf-hero__film { display: grid; place-items: center; }
+  .wf-hero__video {
+    width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain;
+    transform: scale(calc(1 + (var(--cover, 1) - 1) * (1 - var(--to)))); will-change: transform;
+  }
+}
+@media (max-width: 860px) {
+  .wf-hero__ctrl { right: var(--sc-gutter); bottom: auto; top: calc(var(--bar-h) + 0.8rem); }
+  .wf-hero__ctrl .wf-hero__pause span { display: none; }
+  .wf-hero__ctrl .wf-hero__pause { padding: 0; width: 2.75rem; justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wf-hero__video { transform: none; }
 }

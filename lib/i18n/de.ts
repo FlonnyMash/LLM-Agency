@@ -52,7 +52,7 @@ export const de = {
     heroSr: " Marketing, Websites und Advergaming für kleine und mittlere Unternehmen aus Putzbrunn bei München",
     heroLead: "Marketing, Websites und Advergaming für kleine und mittlere Unternehmen. Strategie, Technik und Umsetzung aus einer Agentur.",
     heroLink: "Leistungen ansehen",
-    film: { label: "Imagefilm", aria: "Imagefilm der Webfluence Agency, ohne Ton, in Dauerschleife", note: "Läuft ohne Ton in Dauerschleife.", pause: "Film pausieren", play: "Film abspielen" },
+    film: { label: "Imagefilm", aria: "Imagefilm der Webfluence Agency, ohne Ton, in Dauerschleife", note: "Läuft ohne Ton in Dauerschleife.", pause: "Film pausieren", play: "Film abspielen", fullscreen: "Vollbild" },
     stance: "Unsere Haltung",
     stanceLines: [
       { text: "Reichweite ohne guten Inhalt ", em: "verpufft." },

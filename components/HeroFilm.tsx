@@ -39,6 +39,26 @@ export function HeroFilm({ locale }: { locale: Locale }) {
     };
   }, []);
 
+  // The scale at which the 16:9 frame just covers the screen. The film starts there and zooms out to its full frame.
+  useEffect(() => {
+    const el = box.current;
+    if (!el) return;
+    const set = () => {
+      const cover = Math.max(1, window.innerHeight / ((window.innerWidth * 9) / 16));
+      el.style.setProperty("--cover", cover.toFixed(4));
+    };
+    set();
+    window.addEventListener("resize", set);
+    return () => window.removeEventListener("resize", set);
+  }, []);
+
+  const fullscreen = () => {
+    const v = video.current as (HTMLVideoElement & { webkitEnterFullscreen?: () => void }) | null;
+    if (!v) return;
+    if (v.requestFullscreen) void v.requestFullscreen().catch(() => undefined);
+    else v.webkitEnterFullscreen?.();
+  };
+
   const toggle = () => {
     const v = video.current;
     if (!v) return;
@@ -53,12 +73,20 @@ export function HeroFilm({ locale }: { locale: Locale }) {
         <video ref={video} className="wf-hero__video" src="/media/imagefilm.mp4#t=0.1" muted loop playsInline preload="auto" tabIndex={-1} />
         <div className="wf-hero__scrim" />
       </div>
-      <button type="button" className="wf-hero__pause" onClick={toggle} aria-label={playing ? f.pause : f.play}>
-        <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
-          {playing ? <path d="M3 2h2.6v10H3zM8.4 2H11v10H8.4z" fill="currentColor" /> : <path d="M3.5 2 12 7l-8.5 5z" fill="currentColor" />}
-        </svg>
-        <span>{playing ? f.pause : f.play}</span>
-      </button>
+      <div className="wf-hero__ctrl">
+        <button type="button" className="wf-hero__pause" onClick={toggle} aria-label={playing ? f.pause : f.play}>
+          <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
+            {playing ? <path d="M3 2h2.6v10H3zM8.4 2H11v10H8.4z" fill="currentColor" /> : <path d="M3.5 2 12 7l-8.5 5z" fill="currentColor" />}
+          </svg>
+          <span>{playing ? f.pause : f.play}</span>
+        </button>
+        <button type="button" className="wf-hero__pause" onClick={fullscreen} aria-label={f.fullscreen}>
+          <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true">
+            <path d="M1.5 5V1.5H5M9 1.5h3.5V5M12.5 9v3.5H9M5 12.5H1.5V9" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          <span>{f.fullscreen}</span>
+        </button>
+      </div>
     </>
   );
 }

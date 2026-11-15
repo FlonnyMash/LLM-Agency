@@ -19,7 +19,7 @@ export function HomePage({ locale }: { locale: Locale }) {
       <Header locale={locale} page={{ key: "home" }} />
       <main id="top">
         {/* 1 · Hero: pin. The text leaves upward and the film stands alone, then the film leaves too. */}
-        <section data-sc-act="pin" data-sc-span="1.5" data-sc-drift="#09090b" aria-labelledby="hero-h">
+        <section data-sc-act="pin" data-sc-span="3.2" data-sc-drift="#09090b" aria-labelledby="hero-h">
           <div data-sc-stage className="wf-hero">
             <HeroFilm locale={locale} />
             <div className="wf-hero__bg" aria-hidden="true">
