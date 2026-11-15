@@ -301,9 +301,11 @@ video[data-sc-scrub] { opacity: 0; transition: opacity 380ms var(--sc-ease-out);
 [data-sc-spotlight] { isolation: isolate; }
 :where([data-sc-spotlight]) { position: relative; }
 [data-sc-spotlight]::after {
-  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 2;
+  /* Fixed to the viewport, not the element: the stage clips its children, so an
+     absolutely positioned glow was cut off wherever the stage ended. */
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 2;
   background: radial-gradient(
-    28rem 28rem at calc(var(--sc-mx, 0.5) * 100%) calc(var(--sc-my, 0.5) * 100%),
+    28rem 28rem at var(--sc-px, 50vw) var(--sc-py, 50vh),
     color-mix(in oklab, var(--sc-accent) 16%, transparent), transparent 70%);
   opacity: 0; transition: opacity var(--sc-d-slow) var(--sc-ease-out);
 }

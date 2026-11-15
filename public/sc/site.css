@@ -507,8 +507,14 @@ html.wf-locked, html.wf-menu-open { overflow: hidden; }
     linear-gradient(90deg, rgba(9, 9, 11, 0.96) 0%, rgba(9, 9, 11, 0.9) 46%, rgba(9, 9, 11, 0.5) 74%, rgba(9, 9, 11, 0.16) 100%),
     linear-gradient(0deg, rgba(9, 9, 11, 0.85) 0%, rgba(9, 9, 11, 0) 38%);
 }
-@media (max-width: 860px) {
-  /* On a phone the film keeps its full 16:9 frame at the top; the text sits on the plain ground below it. */
+@media (max-width: 860px) and (orientation: portrait) {
+  /* Held upright, the portrait film fills the whole hero, behind the headline; the scrim is darkest at the bottom where the text sits. */
+  .wf-hero__scrim {
+    background: linear-gradient(0deg, rgba(9, 9, 11, 0.92) 0%, rgba(9, 9, 11, 0.6) 42%, rgba(9, 9, 11, 0.12) 100%);
+  }
+}
+@media (max-width: 860px) and (orientation: landscape) {
+  /* A phone held sideways keeps the 16:9 film whole at the top; the text sits on the plain ground below it. */
   .wf-hero__film { background: var(--sc-canvas); }
   .wf-hero__video { position: absolute; top: var(--bar-h); left: 0; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; }
   .wf-hero__scrim {

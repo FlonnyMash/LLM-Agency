@@ -7,8 +7,8 @@ import { useEffect, useRef } from "react";
  * It plays while the hero is on screen, pauses when it leaves, and does not start by itself
  * under reduced motion.
  */
-/** Playback speed of the film: 1 is the original, 1.5 is half again as fast. */
-const SPEED = 1.5;
+/** Playback speed: the film file is already rendered at 1.5x, so play it as is. */
+const SPEED = 1;
 
 export function HeroFilm() {
   const box = useRef<HTMLDivElement>(null);
@@ -18,9 +18,24 @@ export function HeroFilm() {
     const v = video.current;
     const el = box.current;
     if (!v || !el) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Held upright on a phone the hero gets the portrait cut of the film.
+    const portrait = window.matchMedia("(max-width: 860px) and (orientation: portrait)");
+    const pick = () => {
+      const src = portrait.matches ? "/media/imagefilm-mobile.mp4" : "/media/imagefilm.mp4";
+      if (!v.src.includes(src)) {
+        const wasPlaying = !v.paused;
+        v.src = `${src}#t=0.1`;
+        v.load();
+        v.defaultPlaybackRate = SPEED;
+        v.playbackRate = SPEED;
+        if (wasPlaying && !reduced) void v.play().catch(() => undefined);
+      }
+    };
     v.defaultPlaybackRate = SPEED;
     v.playbackRate = SPEED;
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    pick();
+    portrait.addEventListener("change", pick);
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -30,12 +45,15 @@ export function HeroFilm() {
       { threshold: 0.05 },
     );
     io.observe(el);
-    return () => io.disconnect();
+    return () => {
+      io.disconnect();
+      portrait.removeEventListener("change", pick);
+    };
   }, []);
 
   return (
     <div className="wf-hero__film" ref={box} aria-hidden="true">
-      <video ref={video} className="wf-hero__video" src="/media/imagefilm.mp4#t=0.1" muted loop playsInline preload="auto" tabIndex={-1} />
+      <video ref={video} className="wf-hero__video" muted loop playsInline preload="auto" tabIndex={-1} />
       <div className="wf-hero__scrim" />
     </div>
   );

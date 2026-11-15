@@ -1161,6 +1161,8 @@
           var sr = spots[s].getBoundingClientRect();
           spots[s].style.setProperty('--sc-mx', clamp01((e.clientX - sr.left) / sr.width).toFixed(3));
           spots[s].style.setProperty('--sc-my', clamp01((e.clientY - sr.top) / sr.height).toFixed(3));
+          spots[s].style.setProperty('--sc-px', e.clientX + 'px');
+          spots[s].style.setProperty('--sc-py', e.clientY + 'px');
         }
       }, { passive: true });
 
