@@ -507,14 +507,6 @@ html.wf-locked, html.wf-menu-open { overflow: hidden; }
     linear-gradient(90deg, rgba(9, 9, 11, 0.96) 0%, rgba(9, 9, 11, 0.9) 46%, rgba(9, 9, 11, 0.5) 74%, rgba(9, 9, 11, 0.16) 100%),
     linear-gradient(0deg, rgba(9, 9, 11, 0.85) 0%, rgba(9, 9, 11, 0) 38%);
 }
-.wf-hero__pause {
-  position: absolute; right: max(var(--sc-gutter), calc((100% - var(--sc-maxw)) / 2 + var(--sc-gutter))); bottom: clamp(2.6rem, 9.5vh, 6.4rem); z-index: 3;
-  display: inline-flex; align-items: center; gap: 0.6rem; min-height: 2.75rem; padding: 0 1.1rem 0 0.95rem;
-  border: 1px solid var(--sc-hairline-strong); border-radius: 999px; background: rgba(9, 9, 12, 0.6); color: var(--sc-ink); font-size: 0.9rem; font-weight: 500; cursor: pointer;
-  transition: background-color 140ms var(--sc-ease-out), transform 140ms var(--sc-ease-out);
-}
-.wf-hero__pause:hover { background: rgba(9, 9, 12, 0.85); }
-.wf-hero__pause:active { transform: scale(0.97); }
 @media (max-width: 860px) {
   /* On a phone the film keeps its full 16:9 frame at the top; the text sits on the plain ground below it. */
   .wf-hero__film { background: var(--sc-canvas); }
@@ -523,9 +515,6 @@ html.wf-locked, html.wf-menu-open { overflow: hidden; }
     top: var(--bar-h); bottom: auto; height: 56.25vw;
     background: linear-gradient(0deg, var(--sc-canvas) 0%, rgba(9, 9, 11, 0) 38%);
   }
-  .wf-hero__pause { right: var(--sc-gutter); bottom: auto; top: calc(var(--bar-h) + 0.8rem); }
-  .wf-hero__pause span { display: none; }
-  .wf-hero__pause { padding: 0; width: 2.75rem; justify-content: center; }
 }
 
 /* ---------------------------------- hero choreography (scroll-driven) -- */
@@ -538,35 +527,9 @@ html.wf-locked, html.wf-menu-open { overflow: hidden; }
 .wf-hero__in { transform: translate3d(0, calc(var(--to) * -80vh), 0); opacity: calc(1 - clamp(0, var(--to) * 1.8, 1)); will-change: transform, opacity; }
 .wf-hero__film { transform: translate3d(0, calc(var(--vo) * -26vh), 0); opacity: calc(1 - var(--vo)); will-change: transform, opacity; }
 .wf-hero__scrim { opacity: calc(1 - clamp(0, var(--to) * 1.6, 1)); }
-.wf-hero__pause { opacity: calc(1 - var(--vo)); }
-.wf-hero__pause:focus-visible { opacity: 1; }
-@media (max-width: 860px) {
-  .wf-hero__video { transform: translateY(calc(var(--to) * ((100svh - 56.25vw) / 2 - var(--bar-h)))); }
-}
 @media (prefers-reduced-motion: reduce) {
   .wf-hero { --to: 0; --vo: 0; }
 }
 
-/* ------------------------- hero film: full frame, zoom out, controls -- */
-.wf-hero__ctrl {
-  position: absolute; right: max(var(--sc-gutter), calc((100% - var(--sc-maxw)) / 2 + var(--sc-gutter))); bottom: clamp(2.6rem, 9.5vh, 6.4rem); z-index: 3;
-  display: flex; gap: 0.6rem; opacity: calc(1 - var(--vo));
-}
-.wf-hero__ctrl:focus-within { opacity: 1; }
-.wf-hero__ctrl .wf-hero__pause { position: static; opacity: 1; }
-@media (min-width: 861px) {
-  /* The film is a full 16:9 frame. It starts zoomed to cover the screen and opens up to the whole frame as the text leaves. */
-  .wf-hero__film { display: grid; place-items: center; }
-  .wf-hero__video {
-    width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain;
-    transform: scale(calc(1 + (var(--cover, 1) - 1) * (1 - var(--to)))); will-change: transform;
-  }
-}
-@media (max-width: 860px) {
-  .wf-hero__ctrl { right: var(--sc-gutter); bottom: auto; top: calc(var(--bar-h) + 0.8rem); }
-  .wf-hero__ctrl .wf-hero__pause span { display: none; }
-  .wf-hero__ctrl .wf-hero__pause { padding: 0; width: 2.75rem; justify-content: center; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .wf-hero__video { transform: none; }
-}
+/* the line under the buttons leaves together with the text */
+.wf-hero__line { transform: translate3d(0, calc(var(--to) * -80vh), 0); opacity: calc(1 - clamp(0, var(--to) * 1.8, 1)); }

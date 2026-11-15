@@ -21,9 +21,9 @@ export function HomePage({ locale }: { locale: Locale }) {
         {/* 1 · Hero: pin. The text leaves upward and the film stands alone, then the film leaves too. */}
         <section data-sc-act="pin" data-sc-span="3.2" data-sc-drift="#09090b" aria-labelledby="hero-h">
           <div data-sc-stage className="wf-hero">
-            <HeroFilm locale={locale} />
+            <HeroFilm />
             <div className="wf-hero__bg" aria-hidden="true">
-              <i className="wf-hero__line" data-sc-parallax="0.4" />
+              <i className="wf-hero__line" />
             </div>
             <div className="wf-hero__in">
               <p className="wf-kicker">{d.ui.name}, {d.ui.locality}</p>
