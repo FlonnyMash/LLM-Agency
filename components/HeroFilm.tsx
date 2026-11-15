@@ -7,8 +7,8 @@ import { useEffect, useRef } from "react";
  * It plays while the hero is on screen, pauses when it leaves, and does not start by itself
  * under reduced motion.
  */
-/** Playback speed of the film: 1 is the original, 1.25 is a quarter faster. */
-const SPEED = 1.25;
+/** Playback speed of the film: 1 is the original, 1.5 is half again as fast. */
+const SPEED = 1.5;
 
 export function HeroFilm() {
   const box = useRef<HTMLDivElement>(null);
